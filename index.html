@@ -1,0 +1,230 @@
+<html>
+	<script type="text/javascript">
+	var limit = 8
+question_list = [["A &#8745; B",[0,1,0,0]],["A &#8746; B",[1,1,1,0]],["(A &#8745 B) &#8746; B'",[1,1,0,1]],["A - B",[1,0,0,0]],["(A &#8746; B) - (A &#8745; B)",[1,0,1,0]],["(A - B) &#8746; (B - A)",[1,0,1,0]],["(A &#8745; B)'",[1,0,1,1]],["A' &#8746; B'",[1,0,1,1]]]
+var middle = 0
+var left = 0
+var right = 0
+var outer = 0
+
+var answer = [2,2,2,2]
+var proceed = false
+var turns = 0
+var returner = false
+
+function hover_begin_on(){
+	document.getElementById("triangle1").style.color = "black"
+	document.getElementById("circle1").style.backgroundColor = "white"
+	document.getElementById("begin").style.color = "white"
+}
+
+function hover_begin_off(){
+	document.getElementById("triangle1").style.color = "white"
+	document.getElementById("circle1").style.backgroundColor = "black"
+	document.getElementById("begin").style.color = "black"
+}
+
+function go_one(){
+	document.location.href = "game1.html";
+}
+
+function reset_main(){
+	reset()
+	proceed = false
+	document.getElementById("answer_display").style.display = "none"
+	document.getElementById("begin").innerHTML = "Check"
+	if(turns == limit){
+		document.getElementById("begin").innerHTML = "Return"
+		document.getElementById("answer_display").style.display = "inline-block"
+		document.getElementById("answer_display").innerHTML = "Nice, you completed all the questions. Press the 'Return' button to go back to the start page, or you may exit the exercise"
+		returner = true
+	}
+	else{
+		var problem = question_list.shift()
+		document.getElementById("question_display").innerHTML = problem[0]
+		answer = problem[1]
+		turns +=1
+	}
+}
+
+function check(){
+	if(proceed == true){
+		reset_main()
+	}
+	else if (returner == true){
+		document.location.href = "index.html";
+	}
+	else if(answer[0] == left && answer[1] == middle && answer[2]==right && answer[3] == outer){
+		document.getElementById("answer_display").style.display = "inline-block"
+		document.getElementById("answer_display").innerHTML = "Nice, your answer is correct, click the next button to continue."
+		document.getElementById("begin").innerHTML = "Next"
+		proceed = true
+	}
+	else{
+		document.getElementById("answer_display").style.display = "inline-block"
+		document.getElementById("answer_display").innerHTML = "Sorry your answer is incorrect please try again!"
+		document.getElementById("begin").innerHTML = "Check"
+		proceed = false
+	}
+}
+
+function middle1(){
+	if(document.getElementById("middle1").style.backgroundColor == "darkslategray"){
+		document.getElementById("middle1").style.backgroundColor = "purple"
+		middle = 0
+	}
+	else{
+		document.getElementById("middle1").style.backgroundColor = "darkslategray"
+		middle = 1
+	}
+}
+
+function right1(){
+	if(document.getElementById("right1").style.backgroundColor == "darkslategray"){
+		document.getElementById("right1").style.backgroundColor = "blue"
+		right = 0
+	}
+	else{
+		document.getElementById("right1").style.backgroundColor = "darkslategray"
+		right = 1
+	}
+}
+function left1(){
+	if(document.getElementById("left1").style.backgroundColor == "darkslategray"){
+		document.getElementById("left1").style.backgroundColor = "red"
+		left = 0
+	}
+	else{
+		document.getElementById("left1").style.backgroundColor = "darkslategray"
+		left = 1
+	}
+}
+
+function outer1(){
+	if(document.getElementById("v2").style.backgroundColor == "darkslategray"){
+		document.getElementById("v2").style.backgroundColor = "gray"
+		outer = 0
+	}
+	else{
+		document.getElementById("v2").style.backgroundColor = "darkslategray"
+		outer = 1
+	}
+}
+
+function reset(){
+	document.getElementById("left1").style.backgroundColor = "red"
+	left = 0
+	document.getElementById("right1").style.backgroundColor = "blue"
+	right = 0
+	document.getElementById("middle1").style.backgroundColor = "purple"
+	middle = 0
+	document.getElementById("v2").style.backgroundColor = "gray"
+	outer = 0
+}
+	</script>
+	<style>
+.whole_left{
+    width:25vw;
+    height:25vw;
+    border-radius: 50%;
+    position: absolute;
+    margin-left:11.5vw;
+    margin-top:26vw;
+    background-color: red;
+    opacity:1;
+    z-index: 1;
+}
+.whole_left:hover{
+    background-color: lightgrey!important;
+    }
+.v2:hover{
+    background-color: lightgrey!important;
+}
+.whole_right{
+    width:25vw;
+    height:25vw;
+    border-radius: 50%;
+    position: absolute;
+    margin-left:28.5vw;
+    margin-top:26vw;
+    background-color: blue;
+    opacity:1;
+    z-index: 1
+}
+.whole_right:hover{
+    background-color: lightgrey!important;
+}
+.third_bottom{
+    pointer-events: auto;
+    width:25vw;
+    height:25vw;
+    border-radius: 50%;
+    position: absolute;
+    margin-left:-16.5vw;
+    margin-top:0vw;
+    background-color:purple;
+    opacity:1;
+    z-index: 15;
+}
+.third_bottom:hover{
+    background-color: lightgrey!important;
+}
+.third_bottom_cover{
+    pointer-events: none;
+    width:25vw;
+    height:25vw;
+    border-radius: 50%;
+    position: absolute;
+    margin-left:28.5vw;
+    margin-top:26vw;
+    background-color:transparent;
+    overflow: hidden;
+    opacity: 1;
+}
+.whole_left5{
+    pointer-events: none;
+    width:24.8vw;
+    height:24.8vw;
+    border-radius: 50%;
+    position: absolute;
+    margin-left:11.2vw;
+    margin-top:25.55vw;
+    background-color: transparent;
+    opacity:1;
+    border-width: .5vw;
+    border-color: black;
+    border-style: solid;
+    z-index: 1000;
+}
+.whole_right5{
+    pointer-events: none;
+    width:24.8vw;
+    height:24.8vw;
+    border-radius: 50%;
+    position: absolute;
+    margin-left:28.1vw;
+    margin-top:25.6vw;
+    background-color: transparent;
+    opacity:1;
+    border-width: .5vw;
+    border-color: black;
+    border-style: solid;
+    z-index: 1000;
+}
+	</style>
+		<body onload="lets_start()">
+	<div style="margin-top:10vh;height:40vw;width:60vw;margin-left:20vw;position:absolute;border-width:.5vw; border-style:solid;border-color: black;background-color:grey;">
+		<div style="position:absolute; display: inline-block; margin-left:2.5vw; margin-top:2.5vh; padding:1vw; border-top-style: solid; border-width: thin; border-bottom-style: solid; color:black; border-color: black; font-size: 5.1vw"><strong>Venn Diagrams</strong></div>
+		<div style="position:absolute; display: inline-block; margin-left:7vw; margin-top:10vw; width:50vw; font-size: 3.1vw; color:black">
+		<i> In this set of exercises, you will create a "two-set" Venn diagram for each of
+			a given set of expressions involving the simple set operations "intersection", "union" and "subtraction." Press
+		the start button on the right when you are ready to begin. </i>
+		</div>
+		<div onclick="go_one()" onmouseover="hover_begin_on()" onmouseout="hover_begin_off()" id="go_on" style="z-index:100;margin-top:35vw;margin-left:45vw;">
+		<div id="circle1" style = "margin-left: 0vw; position:absolute; opacity:1;color:black; height: 3.5vw;width: 3.5vw;background-color: black;border-radius: 50%; display: inline-block;"></div>
+		<div id="triangle1" style="margin-left:.7vw; margin-top:.5vh; position:absolute; font-size: 2.5vw; color:white;">&#x25BA;</div>
+		<div id="begin" style="position:absolute; margin-left:5vw; font-size: 3.1vw;color:rgb(0,0,0);">Begin</div>
+		</div>
+		</div>
+	</body>
+</html>
